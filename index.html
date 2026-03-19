@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heroes of the Storm — Eroth Patch Notes — March 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ─── BASE ─── */
+    body {
+      background: #0e1323;
+      color: #c0bfca;
+      font-family: "Noto Sans", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ════════════════════════════════════════
+       PAGE LOAD ANIMATIONS
+    ════════════════════════════════════════ */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes bannerReveal {
+      from { opacity: 0; transform: scale(1.03); filter: brightness(0.4); }
+      to   { opacity: 1; transform: scale(1);    filter: brightness(1); }
+    }
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232,167,66,0); border-color: #00612e; }
+      50%       { box-shadow: 0 0 10px 3px rgba(232,167,66,0.55); border-color: #e8a742; }
+    }
+    @keyframes typewriterCursor {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    /* Scroll-reveal base state */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── TOP NAV ─── */
+    .topbar {
+      background: #0a0f1e;
+      border-bottom: 1px solid #2e2f38;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: fadeSlideDown 0.5s ease both;
+    }
+    .topbar-game {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e8e8f0;
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .topbar-game::before { content: '⚡'; font-size: 16px; color: #00aeef; }
+    .topbar-links { display: flex; margin-left: auto; height: 52px; }
+    .topbar-links a {
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      font-family: "Noto Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .topbar-links a:hover { color: #c0bfca; }
+    .topbar-links a.active { color: #00aeef; border-bottom-color: #00aeef; }
+
+    /* ─── LAYOUT ─── */
+    .page-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 44px 24px 80px;
+    }
+
+    /* ─── BREADCRUMB ─── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin-bottom: 24px;
+      animation: fadeIn 0.6s ease 0.2s both;
+    }
+    .breadcrumb a { color: #6e6e7e; text-decoration: none; }
+    .breadcrumb a:hover { color: #00aeef; }
+    .breadcrumb .sep { color: #3a3b46; }
+
+    /* ─── ARTICLE HEADER ─── */
+    .article-header {
+      margin-bottom: 28px;
+      animation: fadeSlideUp 0.6s ease 0.3s both;
+    }
+    .article-header h1 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #e8e8f0;
+      line-height: 1.2;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .article-meta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+    }
+
+    /* ─── BANNER ─── */
+  .banner {
+  display: block;
+  width: 100%;
+  border: 1px solid #2e2f38;
+  margin-bottom: 32px;
+  animation: bannerReveal 1s ease 0.1s both;
+  transition: filter 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.banner:hover {
+  filter: brightness(1.12);
+  transform: scale(1.008);
+  border-color: #00aeef;
+  box-shadow: 0 0 24px 4px rgba(0, 174, 239, 0.3);
+}
+
+    /* ─── INTRO ─── */
+    .intro {
+      font-size: 15px;
+      color: #a0a0b0;
+      margin-bottom: 28px;
+      line-height: 1.8;
+      animation: fadeSlideUp 0.6s ease 0.5s both;
+    }
+
+    /* ─── HR ─── */
+hr {
+  border: none;
+  height: 1px;
+  margin: 36px 0;
+  background: linear-gradient(90deg, transparent 0%, #2e2f38 20%, #00aeef 50%, #2e2f38 80%, transparent 100%);
+  box-shadow: 0 0 8px 1px rgba(0, 174, 239, 0.25);
+}
+
+    /* ─── QUICK NAV ─── */
+    .quick-nav {
+      background: #0a0f1e;
+      border: 1px solid #2e2f38;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+      animation: fadeSlideUp 0.6s ease 0.6s both;
+    }
+    .quick-nav p {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin-bottom: 10px;
+    }
+    .quick-nav ul { list-style: none; padding: 0; margin: 0; }
+    .quick-nav ul li { margin-bottom: 4px; font-size: 14px; }
+    .quick-nav ul li::before { content: '▸ '; color: #00aeef; font-size: 11px; }
+    .quick-nav ul li a { color: #00aeef; text-decoration: none; font-weight: 700; }
+    .quick-nav ul li a:hover { text-decoration: underline; }
+
+    /* ─── HEADINGS ─── */
+    h2 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #e8e8f0;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-bottom: 2px solid #00aeef;
+      padding-bottom: 8px;
+      margin: 40px 0 20px;
+    }
+    h3 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #d8d8e8;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: 0;
+      padding-bottom: 4px;
+    }
+    h4 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin: 20px 0 6px;
+    }
+    h4.level { color: #e8a742; }
+
+    /* ════════════════════════════════════════
+       HOVER GLOW — ABILITY ROWS
+    ════════════════════════════════════════ */
+    .ability-block {
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+      margin-left: -12px;
+      border-radius: 0 3px 3px 0;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      cursor: default;
+    }
+    .ability-block:hover {
+      border-left-color: #00aeef;
+      background: rgba(0, 174, 239, 0.05);
+    }
+    .ability-block.heroic:hover {
+      border-left-color: #e8a742;
+      background: rgba(232, 167, 66, 0.06);
+    }
+
+    .talent-block {
+      border-left: 2px solid #2e2f38;
+      padding-left: 10px;
+      margin: 10px 0 3px;
+      border-radius: 0 3px 3px 0;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      cursor: default;
+    }
+    .talent-block:hover {
+      border-left-color: #00aeef;
+      background: rgba(0, 174, 239, 0.04);
+    }
+
+    .ability {
+      font-size: 14px;
+      font-weight: 700;
+      color: #b8c4e0;
+      margin-bottom: 4px;
+    }
+    .ability.heroic { color: #e8c070; }
+
+    .talent {
+      font-size: 14px;
+      font-weight: 700;
+      color: #9098b0;
+    }
+
+    /* ─── BULLETS ─── */
+    ul.changes { list-style: none; padding: 0; margin: 0 0 4px 0; }
+    ul.changes li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 14px;
+      color: #a0a0b4;
+      line-height: 1.7;
+      margin-bottom: 3px;
+    }
+    ul.changes li::before {
+      content: '+';
+      position: absolute;
+      left: 4px;
+      color: #00aeef;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    ul.changes.special li { color: #b8a060; }
+    ul.changes.special li::before {
+      content: '★';
+      color: #e8a742;
+      font-size: 11px;
+      top: 3px;
+    }
+
+    /* ════════════════════════════════════════
+       BADGE PULSE
+    ════════════════════════════════════════ */
+    .badge-new {
+      display: inline-block;
+      background: #002a18;
+      border: 1px solid #00612e;
+      color: #00d96e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+      position: relative;
+      top: -2px;
+      animation: badgePulse 2s ease-in-out infinite;
+    }
+
+    /* ════════════════════════════════════════
+       PORTRAIT — zoom + glow on hover
+    ════════════════════════════════════════ */
+    .hero-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px 0 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2e2f38;
+    }
+    .portrait-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+    }
+    .portrait-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 4px;
+      border: 2px solid #00aeef;
+      opacity: 0;
+      transition: opacity 0.3s ease, box-shadow 0.3s ease;
+      pointer-events: none;
+    }
+    .portrait-wrap:hover::after {
+      opacity: 1;
+      box-shadow: 0 0 18px 4px rgba(0, 174, 239, 0.4);
+    }
+    .hero-portrait {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border: 2px solid #2e2f38;
+      display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+    .portrait-wrap:hover .hero-portrait {
+      transform: scale(1.08);
+      filter: brightness(1.15);
+    }
+    .hero-subline {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin-top: 3px;
+    }
+
+    /* ════════════════════════════════════════
+       SOUND TOGGLE
+    ════════════════════════════════════════ */
+    .sound-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      float: right;
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .sound-toggle:hover { color: #00aeef; }
+    .sound-toggle .icon { font-size: 14px; }
+
+    /* ─── DEV COMMENT ─── */
+    .dev-comment {
+      background: #0a0f1e;
+      border: 1px solid #2e2f38;
+      border-left: 3px solid #00aeef;
+      padding: 14px 18px;
+      margin: 24px 0;
+    }
+    .dev-comment .dc-label {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #00aeef;
+      margin-bottom: 8px;
+    }
+    .dev-comment p {
+      font-size: 14px;
+      color: #7a7a8e;
+      font-style: italic;
+      line-height: 1.75;
+      min-height: 1.75em;
+    }
+    /* blinking cursor during typewriter */
+    .dev-comment p .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #00aeef;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: typewriterCursor 0.7s step-end infinite;
+    }
+
+    /* ─── KNOWN ISSUES ─── */
+    .known-issues {
+      background: #1a1214;
+      border: 1px solid #3a2028;
+      border-left: 3px solid #d94f4f;
+      padding: 14px 18px;
+      margin: 24px 0;
+    }
+    .known-issues .ki-label {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #d94f4f;
+      margin-bottom: 10px;
+    }
+    .known-issues ul { list-style: none; padding: 0; margin: 0; }
+    .known-issues ul li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #8a6060;
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+    .known-issues ul li::before {
+      content: '!';
+      position: absolute;
+      left: 4px;
+      color: #d94f4f;
+      font-weight: 700;
+    }
+
+    /* ─── RETURN LINK ─── */
+    .return-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #00aeef;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+    .return-link:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    .page-footer {
+      background: #0a0f1e;
+      border-top: 1px solid #2e2f38;
+      padding: 22px 32px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #3a3b46;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .page-wrap { padding: 24px 16px 60px; }
+      .article-header h1 { font-size: 22px; }
+      h2 { font-size: 18px; }
+      .topbar { padding: 0 16px; }
+      .topbar-links a { padding: 0 10px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ CONFETTI CANVAS ════════ -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ════════ NAV ════════ -->
+<header class="topbar">
+  <div class="topbar-game">Heroes of the Storm</div>
+  <nav class="topbar-links">
+    <a href="#" class="active">Patch Notes</a>
+    <a href="#">Hero Spotlight</a>
+    <a href="#">Forums</a>
+  </nav>
+</header>
+
+<!-- ════════ ARTICLE ════════ -->
+<main class="page-wrap" id="return">
+
+  <nav class="breadcrumb">
+    <a href="#">Heroes of the Storm</a>
+    <span class="sep">›</span>
+    <a href="#">Patch Notes</a>
+    <span class="sep">›</span>
+    March 2026
+  </nav>
+
+  <div class="article-header">
+    <h1>Heroes of the Storm — Patch Notes — March 2026</h1>
+    <div class="article-meta">
+      Blizzard Entertainment &nbsp;·&nbsp; March 2026
+    </div>
+  </div>
+
+  <img class="banner" src="eroth_spotlight.png" alt="Eroth — Prince of the Radiant Bloodline" />
+
+  <p class="intro">
+    We've just deployed a major update to the live servers in order to apply balance changes and address known issues.
+  </p>
+
+  <div class="quick-nav reveal">
+    <p>Quick Navigation</p>
+    <ul>
+      <li><a href="#balance">Balance Updates</a></li>
+      <li><a href="#bugs">Known Issues</a></li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- ════════ BALANCE UPDATES ════════ -->
+  <h2 id="balance" class="reveal">Balance Updates</h2>
+
+  <div class="hero-row reveal">
+    <div class="portrait-wrap">
+      <img class="hero-portrait" src="eroth_portrait.png" alt="Eroth portrait" />
+    </div>
+    <div>
+      <h3>Eroth</h3>
+      <div class="hero-subline">Prince of the Radiant Bloodline</div>
+    </div>
+  </div>
+
+  <h4 class="reveal">Base</h4>
+
+  <div class="ability-block reveal">
+    <div class="ability">Judgment [W]</div>
+    <ul class="changes">
+      <li>Damage increased from 140 to 165.</li>
+      <li>Cooldown reduced from 10 seconds to 9 seconds.</li>
+    </ul>
+  </div>
+
+  <div class="ability-block reveal">
+    <div class="ability">Wake of Ashes [E]</div>
+    <ul class="changes">
+      <li>Damage reduced from 310 to 280.</li>
+    </ul>
+  </div>
+
+  <h4 class="reveal">Talents</h4>
+  <h4 class="level reveal">Level 1</h4>
+
+  <div class="talent-block reveal">
+    <div class="talent">Royal Confidence</div>
+    <ul class="changes">
+      <li>Bonus Attack Damage reduced from 15% to 12%.</li>
+    </ul>
+  </div>
+
+  <div class="talent-block reveal">
+    <div class="talent">Unquestioned Rule</div>
+    <ul class="changes">
+      <li>Now also increases Movement Speed by 10% while no enemies are nearby.</li>
+    </ul>
+  </div>
+
+  <h4 class="level reveal">Level 7</h4>
+
+  <div class="talent-block reveal">
+    <div class="talent">Execution Protocol</div>
+    <ul class="changes">
+      <li>Bonus damage against marked targets reduced from 40% to 30%.</li>
+    </ul>
+  </div>
+
+  <h4 class="level reveal">Level 10 — Heroics</h4>
+
+  <div class="ability-block heroic reveal" data-sound="heroic">
+    <div class="ability heroic">Execution Sentence [R1]</div>
+    <ul class="changes">
+      <li>Delay reduced from 3 seconds to 2.5 seconds.</li>
+      <li>Damage increased from 360 to 400.</li>
+    </ul>
+  </div>
+
+  <div class="ability-block heroic reveal" data-sound="heroic">
+    <div class="ability heroic">Final Verdict [R2]</div>
+    <ul class="changes">
+      <li>Silence duration increased from 0.75 to 1 second.</li>
+      <li>Cooldown increased from 60 to 70 seconds.</li>
+    </ul>
+  </div>
+
+  <h4 class="level reveal">Level 20</h4>
+
+  <div class="talent-block reveal" id="destinyBlock" data-sound="destiny">
+    <div class="talent">
+      Unavoidable Destiny <span class="badge-new">New Passive</span>
+    </div>
+    <ul class="changes special">
+      <li>This Talent is automatically activated at Level 20. Cannot be canceled, dispelled, or avoided.</li>
+      <li>Adds a permanent unit to the player's household.</li>
+      <li>Gaming Time reduced from 100% to 30%.</li>
+      <li>Sleep reduced from 6 hours to 3 hours.</li>
+      <li>Responsibility increased from 100% to 250%.</li>
+    </ul>
+  </div>
+
+    <h4 class="level reveal">Level 20</h4>
+
+  <div class="talent-block reveal" id="destinyBlock" data-sound="destiny">
+    <div class="talent">
+      Legacy of the Prince <span class="badge-new">New Passive</span>
+    </div>
+    <ul class="changes special">
+      <li>The bloodline… grows stronger.</li>
+  </div>
+
+  <div class="dev-comment reveal">
+    <div class="dc-label">Developer Comment</div>
+    <p id="devCommentText"></p>
+  </div>
+
+  <hr>
+
+  <!-- ════════ KNOWN ISSUES ════════ -->
+  <h2 id="bugs" class="reveal">Known Issues</h2>
+
+  <div class="known-issues reveal">
+    <div class="ki-label">Known Issues</div>
+    <ul>
+      <li>Player may experience random AFKs during night phases.</li>
+      <li>Increased frequency of unexpected voice interruptions.</li>
+      <li>Raid availability may be… situational.</li>
+    </ul>
+  </div>
+
+  <hr>
+  <a class="return-link" href="#return">↑ Return to Top</a>
+
+</main>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="page-footer">
+  Heroes of the Storm &nbsp;·&nbsp; Family Guild Announcement &nbsp;·&nbsp; March 2026
+</footer>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+/* ─────────────────────────────────────────
+   1. SCROLL REVEAL
+───────────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ─────────────────────────────────────────
+   3. TYPEWRITER — Dev Comment
+───────────────────────────────────────── */
+const devText = "Eroth has been performing well across coordinated environments. While his ability to dominate chosen targets remains unchanged, we’ve introduced adjustments that will significantly impact his long-term scaling. These changes are… permanent.";
+const devEl = document.getElementById('devCommentText');
+let twStarted = false;
+
+function typeWriter(text, el, speed = 28) {
+  let i = 0;
+  el.innerHTML = '<span class="cursor"></span>';
+  const cursor = el.querySelector('.cursor');
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => cursor.remove(), 1200);
+    }
+  }, speed);
+}
+
+const twObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !twStarted) {
+      twStarted = true;
+      setTimeout(() => typeWriter(devText, devEl), 300);
+      twObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+
+twObserver.observe(document.querySelector('.dev-comment'));
+  
+</script>
+</body>
+</html>
