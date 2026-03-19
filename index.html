@@ -189,3 +189,321 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eroth - Balance Update</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #000c1f;
+            --bg-light: #001b35;
+            --heroic-purple: #aa66cc;
+            --ability-blue: #00b4ff;
+            --buff-green: #44ff44;
+            --nerf-red: #ff4444;
+            --text-white: #ffffff;
+            --text-gray: #e0e0e0;
+        }
+
+        /* 1. ANIMATED BACKGROUND SETUP */
+        body {
+            background-color: var(--bg-deep);
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Star Layer */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -2;
+        }
+
+        /* Create stars using box-shadows for performance */
+        .stars {
+            width: 1px; height: 1px;
+            background: transparent;
+            box-shadow: 100px 200px #FFF, 500px 400px #FFF, 800px 100px #FFF, 300px 700px #FFF, 1200px 300px #FFF, 1500px 800px #FFF, 200px 900px #FFF;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Floating Fog/Nebula Effect */
+        .fog {
+            position: fixed;
+            top: 0; left: 0; width: 200%; height: 200%;
+            background: url('https://www.transparentpng.com/thumb/fog/fog-png-pictures-4.png') repeat-x;
+            background-size: contain;
+            opacity: 0.15;
+            z-index: -1;
+            animation: drift 60s linear infinite;
+        }
+
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* 2. CONTENT STYLING */
+        .container {
+            max-width: 850px;
+            width: 90%;
+            background: rgba(0, 12, 31, 0.85); /* Transparent to show the stars */
+            border: 1px solid #1a2b45;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+            backdrop-filter: blur(5px); /* Softens the fog behind the text */
+            position: relative;
+        }
+
+        h1.hero-title {
+            font-family: 'Exo 2', sans-serif;
+            color: var(--text-white);
+            text-transform: uppercase;
+            border-bottom: 2px solid #1a2b45;
+            padding-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .section-header { color: var(--heroic-purple); text-transform: uppercase; margin-left: 20px; font-weight: bold; margin-top: 30px; }
+
+        .name {
+            color: var(--ability-blue); font-weight: bold; margin-left: 40px; cursor: pointer; transition: 0.3s; display: inline-block;
+        }
+
+        .name:hover {
+            color: #fff; transform: scale(1.05); text-shadow: 0 0 10px var(--ability-blue);
+        }
+
+        ul { list-style-type: square; margin-left: 70px; }
+        li { margin-bottom: 8px; color: var(--text-gray); }
+
+        .buff { color: var(--buff-green); font-weight: bold; }
+        .nerf { color: var(--nerf-red); font-weight: bold; }
+
+        .dev-comment {
+            background: rgba(26, 43, 69, 0.6);
+            border-left: 4px solid var(--heroic-purple);
+            padding: 20px;
+            margin-top: 50px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="fog"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="hero-title">Eroth, Prince of the Radiant Bloodline</h1>
+
+        <div class="section-header">Base</div>
+        <div class="entry">
+            <div class="name" onclick="playSound()">Judgment [W]</div>
+            <ul>
+                <li>Damage increased from 140 to <span class="buff">165</span>.</li>
+                <li>Cooldown reduced to <span class="buff">9 seconds</span>.</li>
+            </ul>
+        </div>
+
+        <div class="section-header">Talents</div>
+        <div style="margin-left:40px; color:#fff; font-weight:bold; margin-top:15px;">Level 20</div>
+        <div class="entry">
+            <div class="name" onclick="playSound()">Unavoidable Destiny</div>
+            <ul>
+                <li><span class="buff">New Passive:</span> Automatically activated.</li>
+                <li>Gaming Time reduced to <span class="nerf">30%</span>.</li>
+                <li>Responsibility increased to <span class="buff">250%</span>.</li>
+            </ul>
+        </div>
+
+        <div class="dev-comment">
+            <strong style="color:var(--heroic-purple); font-style:normal;">Developer Comment:</strong>
+            The bloodline grows stronger. We're reinforcing his long-term scaling.
+        </div>
+    </div>
+
+    <script>
+        const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+        function playSound() { audio.currentTime = 0; audio.play(); }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eroth - Balance Update</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #000c1f;
+            --bg-light: #001b35;
+            --heroic-purple: #aa66cc;
+            --ability-blue: #00b4ff;
+            --buff-green: #44ff44;
+            --nerf-red: #ff4444;
+            --text-white: #ffffff;
+            --text-gray: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* ANIMATED BACKGROUND */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -2;
+        }
+
+        .stars {
+            width: 1px; height: 1px;
+            background: transparent;
+            box-shadow: 100px 200px #FFF, 500px 400px #FFF, 800px 100px #FFF, 1200px 300px #FFF;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 850px;
+            width: 90%;
+            background: rgba(0, 12, 31, 0.85);
+            border: 1px solid #1a2b45;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* NEW: HERO PORTRAIT HEADER */
+        .hero-header-container {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #1a2b45;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .portrait-frame {
+            width: 80px;
+            height: 80px;
+            background: var(--heroic-purple);
+            /* This creates the Hexagon shape */
+            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+            padding: 3px; /* The "Border" thickness */
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px var(--heroic-purple);
+        }
+
+        .portrait-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+        }
+
+        h1.hero-title {
+            font-family: 'Exo 2', sans-serif;
+            color: var(--text-white);
+            text-transform: uppercase;
+            font-size: 32px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* BALANCE CONTENT */
+        .section-header { color: var(--heroic-purple); text-transform: uppercase; margin-left: 20px; font-weight: bold; margin-top: 30px; }
+        .name { color: var(--ability-blue); font-weight: bold; margin-left: 40px; cursor: pointer; transition: 0.3s; display: inline-block; }
+        .name:hover { color: #fff; transform: translateX(5px); text-shadow: 0 0 10px var(--ability-blue); }
+        ul { list-style-type: square; margin-left: 70px; }
+        li { margin-bottom: 8px; color: var(--text-gray); font-size: 15px; }
+        .buff { color: var(--buff-green); font-weight: bold; }
+        .nerf { color: var(--nerf-red); font-weight: bold; }
+
+        .dev-comment {
+            background: rgba(26, 43, 69, 0.6);
+            border-left: 4px solid var(--heroic-purple);
+            padding: 20px;
+            margin-top: 50px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container"><div class="stars"></div></div>
+
+    <div class="container">
+        <div class="hero-header-container">
+            <div class="portrait-frame">
+                <img src="eroth.jpg" alt="Eroth Portrait">
+            </div>
+            <h1 class="hero-title">Eroth</h1>
+        </div>
+
+        <div class="section-header">Base</div>
+        <div class="entry">
+            <div class="name" onclick="playSound()">Judgment [W]</div>
+            <ul>
+                <li>Damage increased from 140 to <span class="buff">165</span>.</li>
+                <li>Cooldown reduced to <span class="buff">9 seconds</span>.</li>
+            </ul>
+        </div>
+
+        <div class="section-header">Talents</div>
+        <div style="margin-left:40px; color:#fff; font-weight:bold; margin-top:15px;">Level 20</div>
+        <div class="entry">
+            <div class="name" onclick="playSound()">Unavoidable Destiny</div>
+            <ul>
+                <li><span class="buff">New Passive:</span> Automatically activated at Level 20.</li>
+                <li>Responsibility increased to <span class="buff">250%</span>.</li>
+                <li>Gaming Time reduced to <span class="nerf">30%</span>.</li>
+            </ul>
+        </div>
+
+        <div class="dev-comment">
+            <strong style="color:var(--heroic-purple); font-style:normal;">Developer Comment:</strong>
+            The bloodline grows stronger. We're reinforcing his long-term scaling potential.
+        </div>
+    </div>
+
+    <script>
+        const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+        function playSound() { audio.currentTime = 0; audio.play(); }
+    </script>
+</body>
+</html>
