@@ -551,9 +551,6 @@
     <h1>Heroes of the Storm — Patch Notes — March 2026</h1>
     <div class="article-meta">
       Blizzard Entertainment &nbsp;·&nbsp; March 2026
-      <span class="sound-toggle" id="soundToggle" title="Toggle ability sound effects">
-        <span class="icon">🔊</span> Sound On
-      </span>
     </div>
   </div>
 
@@ -588,7 +585,7 @@
 
   <h4 class="reveal">Base</h4>
 
-  <div class="ability-block reveal" data-sound="ability">
+  <div class="ability-block reveal">
     <div class="ability">Judgment [W]</div>
     <ul class="changes">
       <li>Damage increased from 140 to 165.</li>
@@ -596,7 +593,7 @@
     </ul>
   </div>
 
-  <div class="ability-block reveal" data-sound="ability">
+  <div class="ability-block reveal">
     <div class="ability">Wake of Ashes [E]</div>
     <ul class="changes">
       <li>Damage reduced from 310 to 280.</li>
@@ -708,142 +705,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-
-/* ─────────────────────────────────────────
-   2. SOUND ENGINE
-   Paladin / holy sword swing — synthesised
-   via Web Audio API, no external files needed
-───────────────────────────────────────── */
-let soundEnabled = true;
-let audioCtx = null;
-
-function getCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
-
-function playSwordSwing() {
-  const ctx = getCtx();
-  const t = ctx.currentTime;
-
-  // Whoosh — filtered white noise sweep
-  const bufferSize = ctx.sampleRate * 0.35;
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1);
-
-  const noise = ctx.createBufferSource();
-  noise.buffer = buffer;
-
-  const bandpass = ctx.createBiquadFilter();
-  bandpass.type = 'bandpass';
-  bandpass.frequency.setValueAtTime(1200, t);
-  bandpass.frequency.exponentialRampToValueAtTime(400, t + 0.3);
-  bandpass.Q.value = 1.2;
-
-  const gainN = ctx.createGain();
-  gainN.gain.setValueAtTime(0.0, t);
-  gainN.gain.linearRampToValueAtTime(0.3, t + 0.03);
-  gainN.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
-
-  noise.connect(bandpass);
-  bandpass.connect(gainN);
-  gainN.connect(ctx.destination);
-  noise.start(t);
-  noise.stop(t + 0.36);
-
-  // Holy metallic ring — layered sine tones
-  [[660, 0.18, 0.6], [880, 0.12, 0.5], [1320, 0.07, 0.35]].forEach(([freq, amp, dur]) => {
-    const osc = ctx.createOscillator();
-    const g   = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.value = freq;
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(amp, t + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    osc.connect(g);
-    g.connect(ctx.destination);
-    osc.start(t);
-    osc.stop(t + dur + 0.05);
-  });
-}
-
-function playHeroicStrike() {
-  const ctx = getCtx();
-  const t = ctx.currentTime;
-
-  // Deep impact thud
-  const osc = ctx.createOscillator();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(140, t);
-  osc.frequency.exponentialRampToValueAtTime(40, t + 0.4);
-  const g = ctx.createGain();
-  g.gain.setValueAtTime(0.5, t);
-  g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
-  osc.connect(g);
-  g.connect(ctx.destination);
-  osc.start(t);
-  osc.stop(t + 0.42);
-
-  // Holy choir shimmer
-  [[523, 0.08, 0.8], [659, 0.06, 0.9], [784, 0.05, 1.0]].forEach(([freq, amp, dur], i) => {
-    const o = ctx.createOscillator();
-    const gn = ctx.createGain();
-    o.type = 'triangle';
-    o.frequency.value = freq;
-    gn.gain.setValueAtTime(0, t + i * 0.04);
-    gn.gain.linearRampToValueAtTime(amp, t + i * 0.04 + 0.1);
-    gn.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    o.connect(gn);
-    gn.connect(ctx.destination);
-    o.start(t + i * 0.04);
-    o.stop(t + dur + 0.05);
-  });
-}
-
-function playDestinyChime() {
-  const ctx = getCtx();
-  const t = ctx.currentTime;
-  // Ascending holy arpeggio
-  [523, 659, 784, 1047, 1319].forEach((freq, i) => {
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'sine';
-    o.frequency.value = freq;
-    const start = t + i * 0.12;
-    g.gain.setValueAtTime(0, start);
-    g.gain.linearRampToValueAtTime(0.15, start + 0.05);
-    g.gain.exponentialRampToValueAtTime(0.001, start + 0.8);
-    o.connect(g);
-    g.connect(ctx.destination);
-    o.start(start);
-    o.stop(start + 0.85);
-  });
-}
-
-// Sound toggle
-const toggleEl = document.getElementById('soundToggle');
-toggleEl.addEventListener('click', () => {
-  soundEnabled = !soundEnabled;
-  toggleEl.innerHTML = soundEnabled
-    ? '<span class="icon">🔊</span> Sound On'
-    : '<span class="icon">🔇</span> Sound Off';
-  toggleEl.style.color = soundEnabled ? '' : '#d94f4f';
-});
-
-// Wire up hover sounds
-document.querySelectorAll('[data-sound]').forEach(el => {
-  let played = false;
-  el.addEventListener('mouseenter', () => {
-    if (!soundEnabled) return;
-    const type = el.dataset.sound;
-    if (type === 'heroic') playHeroicStrike();
-    else if (type === 'destiny') playDestinyChime();
-    else playSwordSwing();
-  });
-});
-
 
 /* ─────────────────────────────────────────
    3. TYPEWRITER — Dev Comment
