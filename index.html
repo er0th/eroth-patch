@@ -2,31 +2,190 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Eroth Balance Updates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heroes of the Storm - Eroth Balance Update</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { background-color: #000c1f; color: #e0e0e0; font-family: sans-serif; padding: 50px; }
-        .hero { color: #fff; text-transform: uppercase; border-bottom: 1px solid #1a2b45; }
-        .section { color: #aa66cc; font-weight: bold; margin-left: 20px; text-transform: uppercase; }
-        .ability { color: #00b4ff; font-weight: bold; margin-left: 40px; margin-top: 15px; }
-        ul { list-style-type: square; margin-left: 60px; }
-        .buff { color: #44ff44; font-weight: bold; }
-        .nerf { color: #ff4444; font-weight: bold; }
+        :root {
+            --bg-deep: #000c1f;
+            --bg-light: #001b35;
+            --border-blue: #1a2b45;
+            --heroic-purple: #aa66cc;
+            --ability-blue: #00b4ff;
+            --buff-green: #44ff44;
+            --nerf-red: #ff4444;
+            --text-white: #ffffff;
+            --text-gray: #e0e0e0;
+        }
+
+        body {
+            background: radial-gradient(circle at top, var(--bg-light) 0%, var(--bg-deep) 100%);
+            color: var(--text-gray);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: rgba(0, 12, 31, 0.85);
+            border: 1px solid var(--border-blue);
+            padding: 40px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.6);
+        }
+
+        /* Hero Header */
+        h1.hero-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 36px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--border-blue);
+            padding-bottom: 10px;
+            margin: 0 0 30px 0;
+        }
+
+        /* Section Headers */
+        .section-header {
+            color: var(--heroic-purple);
+            font-family: 'Exo 2', sans-serif;
+            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin: 30px 0 15px 20px;
+            text-shadow: 0 0 10px rgba(170, 102, 204, 0.2);
+        }
+
+        /* Talent/Ability Interactive Row */
+        .name {
+            color: var(--ability-blue);
+            font-weight: 700;
+            font-size: 16px;
+            margin-left: 40px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.25s ease-out;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* THE GLOW EFFECT */
+        .name:hover {
+            color: var(--text-white);
+            transform: translateX(5px) scale(1.02);
+            text-shadow: 0 0 8px var(--ability-blue), 0 0 20px var(--ability-blue);
+            background: rgba(0, 180, 255, 0.1);
+        }
+
+        .tier-label {
+            color: var(--text-white);
+            font-weight: 700;
+            margin-left: 40px;
+            display: block;
+            margin-top: 25px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Bullet Points */
+        ul {
+            list-style-type: square;
+            margin-left: 75px;
+            margin-top: 8px;
+            color: var(--text-gray);
+        }
+
+        li { margin-bottom: 8px; font-size: 15px; line-height: 1.4; }
+
+        .buff { color: var(--buff-green); font-weight: bold; }
+        .nerf { color: var(--nerf-red); font-weight: bold; }
+
+        /* Dev Comment styling */
+        .dev-comment {
+            background: rgba(26, 43, 69, 0.4);
+            border-left: 4px solid var(--heroic-purple);
+            padding: 20px;
+            margin-top: 50px;
+            font-style: italic;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .dev-label {
+            color: var(--heroic-purple);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 8px;
+            font-style: normal;
+        }
     </style>
 </head>
 <body>
-    <h1 class="hero">Eroth</h1>
-    <p class="section">Base</p>
-    <div class="ability">Judgment [W]</div>
-    <ul>
-        <li>Damage increased from 140 to <span class="buff">165</span>.</li>
-        <li>Cooldown reduced from 10s to <span class="buff">9s</span>.</li>
-    </ul>
-    <p class="section">Talents</p>
-    <div style="color:#fff; margin-left:40px; font-weight:bold;">Level 20</div>
-    <div class="ability">Unavoidable Destiny</div>
-    <ul>
-        <li>Adds a permanent unit to the player's household.</li>
-        <li>Gaming Time reduced to <span class="nerf">30%</span>.</li>
-    </ul>
+
+<div class="container">
+    <h1 class="hero-title">Eroth</h1>
+
+    <div class="section-header">Base</div>
+    
+    <div class="entry">
+        <div class="name" onclick="playSound()">Judgment [W]</div>
+        <ul>
+            <li>Damage increased from 140 to <span class="buff">165</span>.</li>
+            <li>Cooldown reduced from 10 seconds to <span class="buff">9 seconds</span>.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="name" onclick="playSound()">Wake of Ashes [E]</div>
+        <ul>
+            <li>Damage reduced from 310 to <span class="nerf">280</span>.</li>
+        </ul>
+    </div>
+
+    <div class="section-header">Talents</div>
+
+    <span class="tier-label">Level 1</span>
+    <div class="entry">
+        <div class="name" onclick="playSound()">Royal Confidence</div>
+        <ul>
+            <li>Bonus Attack Damage reduced from 15% to <span class="nerf">12%</span>.</li>
+        </ul>
+    </div>
+
+    <span class="tier-label">Level 20</span>
+    <div class="entry">
+        <div class="name" onclick="playSound()">Unavoidable Destiny</div>
+        <ul>
+            <li><span class="buff">New Passive:</span> Automatically activated at Level 20.</li>
+            <li>Adds a permanent unit to the player's household.</li>
+            <li>Gaming Time reduced from 100% to <span class="nerf">30%</span>.</li>
+            <li>Sleep reduced from 6 hours to <span class="nerf">3 hours</span>.</li>
+            <li>Responsibility increased from 100% to <span class="buff">250%</span>.</li>
+        </ul>
+    </div>
+
+    <div class="dev-comment">
+        <span class="dev-label">Developer Comment:</span>
+        Eroth has been performing strongly in coordinated environments. While we’re happy with his ability to dominate chosen targets, we felt it was time to reinforce his… long-term scaling potential. The bloodline… grows stronger.
+    </div>
+</div>
+
+<script>
+    const hotsSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); // A clean UI 'click'
+    function playSound() {
+        hotsSound.currentTime = 0;
+        hotsSound.play();
+    }
+</script>
+
 </body>
 </html>
