@@ -16,6 +16,7 @@
             --nerf-red: #ff4444;
             --text-white: #ffffff;
             --text-gray: #e0e0e0;
+            --border-blue: #1a2b45;
         }
 
         body {
@@ -25,6 +26,7 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* ANIMATED BACKGROUND */
@@ -48,18 +50,19 @@
         .container {
             max-width: 850px;
             width: 90%;
-            background: rgba(0, 12, 31, 0.85);
-            border: 1px solid #1a2b45;
+            background: rgba(0, 12, 31, 0.9);
+            border: 1px solid var(--border-blue);
             padding: 40px;
             margin: 40px 0;
             box-shadow: 0 0 50px rgba(0,0,0,1);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
-        /* NEW: MAIN HERO BANNER */
+        /* MAIN HERO BANNER */
         .hero-banner {
             width: 100%;
-            border: 1px solid var(--border-blue);
+            border: 1px solid var(--ability-blue);
             border-radius: 4px;
             margin-bottom: 30px;
             overflow: hidden;
@@ -69,39 +72,41 @@
         .hero-banner img {
             width: 100%;
             display: block;
-            transition: transform 0.5s ease;
+            transition: transform 0.8s ease;
         }
 
-        .hero-banner:hover img {
-            transform: scale(1.02);
-        }
-
-        /* PORTRAIT HEADER */
+        /* PORTRAIT HEADER SECTION */
         .hero-header-container {
             display: flex;
             align-items: center;
-            border-bottom: 2px solid #1a2b45;
+            border-bottom: 2px solid var(--border-blue);
             padding-bottom: 20px;
             margin-bottom: 30px;
         }
 
-        .portrait-frame {
-            width: 80px;
-            height: 80px;
-            background: var(--heroic-purple);
-            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
-            padding: 3px;
-            margin-right: 20px;
+        /* THE HEXAGON PORTRAIT */
+        .hero-portrait-frame {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--heroic-purple) 0%, #330066 100%);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            padding: 4px;
+            margin-right: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: 0.3s;
+            cursor: pointer;
         }
 
-        .portrait-frame img {
+        .hero-portrait-frame:hover { transform: scale(1.1); filter: brightness(1.2); }
+
+        .hero-portrait-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+            object-position: top center; /* Focuses on Eroth's head/halo */
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
         }
 
         h1.hero-title {
@@ -110,14 +115,30 @@
             text-transform: uppercase;
             font-size: 32px;
             margin: 0;
+            letter-spacing: 2px;
         }
 
         /* CONTENT */
-        .section-header { color: var(--heroic-purple); text-transform: uppercase; margin-left: 20px; font-weight: bold; margin-top: 30px; font-size: 14px; letter-spacing: 1px; }
-        .name { color: var(--ability-blue); font-weight: bold; margin-left: 40px; cursor: pointer; transition: 0.3s; display: inline-block; }
-        .name:hover { color: #fff; text-shadow: 0 0 10px var(--ability-blue); }
+        .section-header { color: var(--heroic-purple); text-transform: uppercase; margin-left: 20px; font-weight: bold; margin-top: 30px; font-size: 14px; }
+        
+        .name { 
+            color: var(--ability-blue); 
+            font-weight: bold; 
+            margin-left: 40px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            display: inline-block;
+        }
+
+        .name:hover { 
+            color: #fff; 
+            transform: translateX(8px); 
+            text-shadow: 0 0 10px var(--ability-blue); 
+        }
+
         ul { list-style-type: square; margin-left: 70px; }
-        li { margin-bottom: 8px; color: var(--text-gray); font-size: 15px; }
+        li { margin-bottom: 10px; color: var(--text-gray); font-size: 15px; }
+        
         .buff { color: var(--buff-green); font-weight: bold; }
         .nerf { color: var(--nerf-red); font-weight: bold; }
 
@@ -125,7 +146,7 @@
             background: rgba(26, 43, 69, 0.6);
             border-left: 4px solid var(--heroic-purple);
             padding: 20px;
-            margin-top: 50px;
+            margin-top: 60px;
             font-style: italic;
         }
     </style>
@@ -136,12 +157,12 @@
 
     <div class="container">
         <div class="hero-banner">
-            <img src="Eroth_Final.png" alt="Eroth Spotlight">
+            <img src="Eroth_Final.png" alt="Eroth Banner">
         </div>
 
         <div class="hero-header-container">
-            <div class="portrait-frame">
-                <img src="eroth.jpg" alt="Eroth Portrait">
+            <div class="hero-portrait-frame">
+                <img src="Eroth_Final.png" alt="Eroth Portrait">
             </div>
             <h1 class="hero-title">Eroth</h1>
         </div>
@@ -156,18 +177,19 @@
         </div>
 
         <div class="section-header">Talent Updates</div>
-        <div style="margin-left:40px; color:#fff; font-weight:bold; margin-top:15px;">Level 20</div>
+        <div style="margin-left:40px; color:#fff; font-weight:bold; margin-top:15px; font-size: 13px;">LEVEL 20</div>
         <div class="entry">
             <div class="name" onclick="playSound()">Unavoidable Destiny</div>
             <ul>
-                <li>Responsibility increased to <span class="buff">250%</span>.</li>
+                <li><span class="buff">New Passive:</span> Automatically activates.</li>
                 <li>Gaming Time reduced to <span class="nerf">30%</span>.</li>
+                <li>Responsibility increased to <span class="buff">250%</span>.</li>
             </ul>
         </div>
 
         <div class="dev-comment">
             <strong style="color:var(--heroic-purple); font-style:normal;">Developer Comment:</strong>
-            Eroth's introduction to the Nexus marks a new era. We're reinforcing his long-term scaling to ensure the bloodline remains supreme.
+            "The Radiant Bloodline is supreme. We've adjusted his late-game scaling to reflect his growing influence in the household... I mean, the Nexus."
         </div>
     </div>
 
