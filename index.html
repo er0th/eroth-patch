@@ -154,18 +154,20 @@
     }
 
     /* ─── BANNER ─── */
-    .banner {
-      display: block;
-      width: 100%;
-      border: 1px solid #2e2f38;
-      margin-bottom: 32px;
-      animation: bannerReveal 1s ease 0.1s both;
-      transition: filter 0.4s ease, transform 0.4s ease;
-    }
-    .banner:hover {
-      filter: brightness(1.08);
-      transform: scale(1.005);
-    }
+  .banner {
+  display: block;
+  width: 100%;
+  border: 1px solid #2e2f38;
+  margin-bottom: 32px;
+  animation: bannerReveal 1s ease 0.1s both;
+  transition: filter 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.banner:hover {
+  filter: brightness(1.12);
+  transform: scale(1.008);
+  border-color: #00aeef;
+  box-shadow: 0 0 24px 4px rgba(0, 174, 239, 0.3);
+}
 
     /* ─── INTRO ─── */
     .intro {
