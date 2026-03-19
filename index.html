@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heroes of the Storm — Eroth Patch Notes — March 2026</title>
+
+  <!-- Fonts: Noto Sans (body, exactly as Blizzard uses) + Barlow Condensed (heading stand-in) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ─────────────────────────────────────────
+       TOKENS — pulled from Blizzard's live page
+       bg:        #1b1c21  (page)
+       surface:   #13141a  (nav, sidebar)
+       border:    #2e2f38
+       text:      #c0bfca  (body)
+       text-dim:  #6e6e7e  (meta, labels)
+       accent:    #00aeef  (Blizzard blue — links, highlights)
+       gold:      #e8a742  (level labels, special)
+    ───────────────────────────────────────── */
+
+    body {
+      background: #1b1c21;
+      color: #c0bfca;
+      font-family: "Noto Sans", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─────────────────────────────────────────
+       TOP NAV
+    ───────────────────────────────────────── */
+    .topbar {
+      background: #13141a;
+      border-bottom: 1px solid #2e2f38;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-game {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e8e8f0;
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .topbar-game::before {
+      content: '⚡';
+      font-size: 16px;
+      color: #00aeef;
+    }
+
+    .topbar-links {
+      display: flex;
+      margin-left: auto;
+      height: 52px;
+    }
+
+    .topbar-links a {
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      font-family: "Noto Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+
+    .topbar-links a:hover { color: #c0bfca; }
+    .topbar-links a.active { color: #00aeef; border-bottom-color: #00aeef; }
+
+    /* ─────────────────────────────────────────
+       PAGE WRAPPER
+    ───────────────────────────────────────── */
+    .page-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 44px 24px 80px;
+    }
+
+    /* ─────────────────────────────────────────
+       BREADCRUMB
+    ───────────────────────────────────────── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin-bottom: 24px;
+    }
+
+    .breadcrumb a { color: #6e6e7e; text-decoration: none; }
+    .breadcrumb a:hover { color: #00aeef; }
+    .breadcrumb .sep { color: #3a3b46; }
+
+    /* ─────────────────────────────────────────
+       ARTICLE HEADER
+    ───────────────────────────────────────── */
+    .article-header { margin-bottom: 28px; }
+
+    .article-header h1 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #e8e8f0;
+      line-height: 1.2;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .article-meta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+    }
+
+    /* ─────────────────────────────────────────
+       BANNER IMAGE
+    ───────────────────────────────────────── */
+    .banner {
+      display: block;
+      width: 100%;
+      border: 1px solid #2e2f38;
+      margin-bottom: 32px;
+    }
+
+    /* ─────────────────────────────────────────
+       INTRO PARAGRAPH
+    ───────────────────────────────────────── */
+    .intro {
+      font-size: 15px;
+      color: #a0a0b0;
+      margin-bottom: 28px;
+      line-height: 1.8;
+    }
+
+    /* ─────────────────────────────────────────
+       HORIZONTAL RULE
+    ───────────────────────────────────────── */
+    hr {
+      border: none;
+      border-top: 1px solid #2e2f38;
+      margin: 36px 0;
+    }
+
+    /* ─────────────────────────────────────────
+       QUICK NAV BOX
+    ───────────────────────────────────────── */
+    .quick-nav {
+      background: #13141a;
+      border: 1px solid #2e2f38;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+    }
+
+    .quick-nav p {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin-bottom: 10px;
+    }
+
+    .quick-nav ul { list-style: none; padding: 0; margin: 0; }
+
+    .quick-nav ul li {
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .quick-nav ul li::before {
+      content: '▸ ';
+      color: #00aeef;
+      font-size: 11px;
+    }
+
+    .quick-nav ul li a {
+      color: #00aeef;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .quick-nav ul li a:hover { text-decoration: underline; }
+
+    /* ─────────────────────────────────────────
+       H2 — Section titles (Balance Updates, etc.)
+       Blizzard: large condensed bold, Blizzard-blue underline
+    ───────────────────────────────────────── */
+    h2 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #e8e8f0;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-bottom: 2px solid #00aeef;
+      padding-bottom: 8px;
+      margin: 40px 0 20px;
+    }
+
+    /* ─────────────────────────────────────────
+       H3 — Hero name
+    ───────────────────────────────────────── */
+    h3 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #d8d8e8;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: 0;
+      padding-bottom: 4px;
+    }
+
+    /* ─────────────────────────────────────────
+       H4 — Sub-labels (Base / Talents)
+    ───────────────────────────────────────── */
+    h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin: 20px 0 6px;
+    }
+
+    h4.level { color: #e8a742; }
+
+    /* ─────────────────────────────────────────
+       ABILITY NAME
+    ───────────────────────────────────────── */
+    .ability {
+      font-size: 14px;
+      font-weight: 700;
+      color: #b8c4e0;
+      margin: 14px 0 4px;
+    }
+
+    /* ─────────────────────────────────────────
+       TALENT NAME
+    ───────────────────────────────────────── */
+    .talent {
+      font-size: 14px;
+      font-weight: 700;
+      color: #9098b0;
+      margin: 10px 0 3px;
+      padding-left: 10px;
+      border-left: 2px solid #2e2f38;
+    }
+
+    /* ─────────────────────────────────────────
+       CHANGE BULLETS  (+)
+    ───────────────────────────────────────── */
+    ul.changes {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4px 0;
+    }
+
+    ul.changes li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 14px;
+      color: #a0a0b4;
+      line-height: 1.7;
+      margin-bottom: 3px;
+    }
+
+    ul.changes li::before {
+      content: '+';
+      position: absolute;
+      left: 4px;
+      color: #00aeef;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Gold stars for special destiny talent */
+    ul.changes.special li { color: #b8a060; }
+    ul.changes.special li::before {
+      content: '★';
+      color: #e8a742;
+      font-size: 11px;
+      top: 3px;
+    }
+
+    /* ─────────────────────────────────────────
+       NEW PASSIVE BADGE
+    ───────────────────────────────────────── */
+    .badge-new {
+      display: inline-block;
+      background: #002a18;
+      border: 1px solid #00612e;
+      color: #00d96e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+      position: relative;
+      top: -2px;
+    }
+
+    /* ─────────────────────────────────────────
+       HERO PORTRAIT ROW
+    ───────────────────────────────────────── */
+    .hero-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px 0 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2e2f38;
+    }
+
+    .hero-portrait {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border: 2px solid #2e2f38;
+      flex-shrink: 0;
+    }
+
+    .hero-subline {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #6e6e7e;
+      margin-top: 3px;
+    }
+
+    /* ─────────────────────────────────────────
+       DEVELOPER COMMENT
+    ───────────────────────────────────────── */
+    .dev-comment {
+      background: #13141a;
+      border: 1px solid #2e2f38;
+      border-left: 3px solid #00aeef;
+      padding: 14px 18px;
+      margin: 24px 0;
+    }
+
+    .dev-comment .dc-label {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #00aeef;
+      margin-bottom: 8px;
+    }
+
+    .dev-comment p {
+      font-size: 14px;
+      color: #7a7a8e;
+      font-style: italic;
+      line-height: 1.75;
+    }
+
+    /* ─────────────────────────────────────────
+       KNOWN ISSUES
+    ───────────────────────────────────────── */
+    .known-issues {
+      background: #1a1214;
+      border: 1px solid #3a2028;
+      border-left: 3px solid #d94f4f;
+      padding: 14px 18px;
+      margin: 24px 0;
+    }
+
+    .known-issues .ki-label {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #d94f4f;
+      margin-bottom: 10px;
+    }
+
+    .known-issues ul { list-style: none; padding: 0; margin: 0; }
+
+    .known-issues ul li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #8a6060;
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    .known-issues ul li::before {
+      content: '!';
+      position: absolute;
+      left: 4px;
+      color: #d94f4f;
+      font-weight: 700;
+    }
+
+    /* ─────────────────────────────────────────
+       RETURN LINK
+    ───────────────────────────────────────── */
+    .return-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #00aeef;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+
+    .return-link:hover { text-decoration: underline; }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .page-footer {
+      background: #13141a;
+      border-top: 1px solid #2e2f38;
+      padding: 22px 32px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #3a3b46;
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .page-wrap { padding: 24px 16px 60px; }
+      .article-header h1 { font-size: 22px; }
+      h2 { font-size: 18px; }
+      h3 { font-size: 17px; }
+      .topbar { padding: 0 16px; }
+      .topbar-links a { padding: 0 10px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ NAV ══════════════ -->
+  <header class="topbar">
+    <div class="topbar-game">Heroes of the Storm</div>
+    <nav class="topbar-links">
+      <a href="#" class="active">Patch Notes</a>
+      <a href="#">Hero Spotlight</a>
+      <a href="#">Forums</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════ ARTICLE ══════════════ -->
+  <main class="page-wrap" id="return">
+
+    <nav class="breadcrumb">
+      <a href="#">Heroes of the Storm</a>
+      <span class="sep">›</span>
+      <a href="#">Patch Notes</a>
+      <span class="sep">›</span>
+      March 2026
+    </nav>
+
+    <div class="article-header">
+      <h1>Heroes of the Storm — Patch Notes — March 2026</h1>
+      <div class="article-meta">Blizzard Entertainment &nbsp;·&nbsp; March 2026</div>
+    </div>
+
+    <!-- Banner — Eroth_Final.png sits in same folder -->
+    <img class="banner" src="Eroth_Final.png" alt="Eroth — Prince of the Radiant Bloodline" />
+
+    <p class="intro">
+      We've just deployed a major update to the live servers in order to apply balance changes and address known issues.
+    </p>
+
+    <div class="quick-nav">
+      <p>Quick Navigation</p>
+      <ul>
+        <li><a href="#balance">Balance Updates</a></li>
+        <li><a href="#bugs">Known Issues</a></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ══════════════════════════════
+         BALANCE UPDATES
+    ══════════════════════════════ -->
+    <h2 id="balance">Balance Updates</h2>
+
+    <div class="hero-row">
+      <img class="hero-portrait" src="eroth_portrait.jpg" alt="Eroth portrait" />
+      <div>
+        <h3>Eroth</h3>
+        <div class="hero-subline">Prince of the Radiant Bloodline</div>
+      </div>
+    </div>
+
+    <h4>Base</h4>
+
+    <div class="ability">Judgment [W]</div>
+    <ul class="changes">
+      <li>Damage increased from 140 to 165.</li>
+      <li>Cooldown reduced from 10 seconds to 9 seconds.</li>
+    </ul>
+
+    <div class="ability">Wake of Ashes [E]</div>
+    <ul class="changes">
+      <li>Damage reduced from 310 to 280.</li>
+    </ul>
+
+    <h4>Talents</h4>
+
+    <h4 class="level">Level 1</h4>
+
+    <div class="talent">Royal Confidence</div>
+    <ul class="changes">
+      <li>Bonus Attack Damage reduced from 15% to 12%.</li>
+    </ul>
+
+    <div class="talent">Unquestioned Rule</div>
+    <ul class="changes">
+      <li>Now also increases Movement Speed by 10% while no enemies are nearby.</li>
+    </ul>
+
+    <h4 class="level">Level 7</h4>
+
+    <div class="talent">Execution Protocol</div>
+    <ul class="changes">
+      <li>Bonus damage against marked targets reduced from 40% to 30%.</li>
+    </ul>
+
+    <h4 class="level">Level 10 — Heroics</h4>
+
+    <div class="ability">Execution Sentence [R1]</div>
+    <ul class="changes">
+      <li>Delay reduced from 3 seconds to 2.5 seconds.</li>
+      <li>Damage increased from 360 to 400.</li>
+    </ul>
+
+    <div class="ability">Final Verdict [R2]</div>
+    <ul class="changes">
+      <li>Silence duration increased from 0.75 to 1 second.</li>
+      <li>Cooldown increased from 60 to 70 seconds.</li>
+    </ul>
+
+    <h4 class="level">Level 20</h4>
+
+    <div class="talent">
+      Unavoidable Destiny <span class="badge-new">New Passive</span>
+    </div>
+    <ul class="changes special">
+      <li>This Talent is automatically activated at Level 20. Cannot be canceled, dispelled, or avoided.</li>
+      <li>Adds a permanent unit to the player's household.</li>
+      <li>Gaming Time reduced from 100% to 30%.</li>
+      <li>Sleep reduced from 6 hours to 3 hours.</li>
+      <li>Responsibility increased from 100% to 250%.</li>
+    </ul>
+
+    <div class="dev-comment">
+      <div class="dc-label">Developer Comment</div>
+      <p>
+        Eroth has been performing strongly in coordinated environments. While we're happy with his ability to dominate chosen targets, we felt it was time to reinforce his… long-term scaling potential. The bloodline… grows stronger.
+      </p>
+    </div>
+
+    <hr>
+
+    <!-- ══════════════════════════════
+         KNOWN ISSUES
+    ══════════════════════════════ -->
+    <h2 id="bugs">Known Issues</h2>
+
+    <div class="known-issues">
+      <div class="ki-label">Known Issues</div>
+      <ul>
+        <li>Player may experience random AFKs during night phases.</li>
+        <li>Increased frequency of unexpected voice interruptions.</li>
+        <li>Raid availability may be… situational.</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <a class="return-link" href="#return">↑ Return to Top</a>
+
+  </main>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="page-footer">
+    Heroes of the Storm &nbsp;·&nbsp; Family Guild Announcement &nbsp;·&nbsp; March 2026
+  </footer>
+
+</body>
+</html>
